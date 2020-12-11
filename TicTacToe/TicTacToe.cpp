@@ -2,29 +2,38 @@
 //
 
 #include <iostream>
-void printGrid(char arr[]) {
+
+
+char grid[3][3] = { {'0','0','0'},{'0','0','0'},{'0','0','0'} };
+void printGrid() {
 
     for (int i = 0; i < 3; i++) {
         for (int y = 0; y < 3; y++) {
-            std::cout << "    |    " << arr[(i * 3) + y];
+            if (y == 0)
+                std::cout << "         " << grid[i][y];
+            else
+                std::cout << "    |    " << grid[i][y];
         }
-        std::cout << std::endl << "       ---------------------------"<< "\n";
+        if (i != 2)
+            std::cout << std::endl << "       ---------------------------" << "\n";
+        else
+            std::cout << std::endl;
     }
 }
-char checkWinner(char grid[]) {
+char checkWinner() {
 
-    if (grid[0] == 'X' && grid[1] == 'X' && grid[2] == 'X' || grid[3] == 'X' && grid[4] == 'X' && grid[5] == 'X' || grid[6] == 'X' && grid[7] == 'X' && grid[8] == 'X' ||
-        grid[0] == 'X' && grid[3] == 'X' && grid[6] == 'X' || grid[1] == 'X' && grid[4] == 'X' && grid[7] == 'X' || grid[2] == 'X' && grid[5] == 'X' && grid[8] == 'X' ||
-        grid[0] == 'X' && grid[4] == 'X' && grid[8] == 'X' || grid[2] == 'X' && grid[4] == 'X' && grid[6] == 'X') {
+    if (grid[0][0] == 'X' && grid[0][1] == 'X' && grid[0][2] == 'X' || grid[1][0] == 'X' && grid[1][1] == 'X' && grid[1][2] == 'X' || grid[2][0] == 'X' && grid[2][1] == 'X' && grid[2][2] == 'X' ||
+        grid[0][0] == 'X' && grid[1][0] == 'X' && grid[2][0] == 'X' || grid[0][1] == 'X' && grid[1][1] == 'X' && grid[2][1] == 'X' || grid[0][2] == 'X' && grid[1][2] == 'X' && grid[2][2] == 'X' ||
+        grid[0][0] == 'X' && grid[1][1] == 'X' && grid[2][2] == 'X' || grid[0][2] == 'X' && grid[1][1] == 'X' && grid[2][0] == 'X') {
         return 'X';
     }
-    else if (grid[0] == 'O' && grid[1] == 'O' && grid[2] == 'O' || grid[3] == 'O' && grid[4] == 'O' && grid[5] == 'O' || grid[6] == 'O' && grid[7] == 'O' && grid[8] == 'O' ||
-        grid[0] == 'O' && grid[3] == 'O' && grid[6] == 'O' || grid[1] == 'O' && grid[4] == 'O' && grid[7] == 'O' || grid[2] == 'O' && grid[5] == 'O' && grid[8] == 'O' ||
-        grid[0] == 'O' && grid[4] == 'O' && grid[8] == 'O' || grid[2] == 'O' && grid[4] == 'O' && grid[6] == 'O') {
+    else if (grid[0][0] == 'O' && grid[0][1] == 'O' && grid[0][2] == 'O' || grid[1][0] == 'O' && grid[1][1] == 'O' && grid[1][2] == 'O' || grid[2][0] == 'O' && grid[2][1] == 'O' && grid[2][2] == 'O' ||
+        grid[0][0] == 'O' && grid[1][0] == 'O' && grid[2][0] == 'O' || grid[0][1] == 'O' && grid[1][1] == 'O' && grid[2][1] == 'O' || grid[0][2] == 'O' && grid[1][2] == 'O' && grid[2][2] == 'O' ||
+        grid[0][0] == 'O' && grid[1][1] == 'O' && grid[2][2] == 'O' || grid[0][2] == 'O' && grid[1][1] == 'O' && grid[2][0] == 'O') {
         return 'O';
     }
-    else if (grid[0] != '0' && grid[1] != '0' && grid[2] != '0' && grid[3] != '0' && grid[4] != '0' && grid[5] != '0' && grid[6] != '0' && grid[7] != '0' && grid[8] != '0') {
-        return 'q';
+    else if (grid[0][0] != '0' && grid[0][1] != '0' && grid[0][2] != '0' && grid[1][0] != '0' && grid[1][1] != '0' && grid[1][2] != '0' && grid[2][0] != '0' && grid[2][1] != '0' && grid[2][2] != '0') {
+        return 's';
     }
     return ' ';
 }
@@ -37,16 +46,17 @@ int main()
     char player2Name[15];
     char winner = ' ';
     int input = 0;
-    char grid[9] = {'0','0','0','0','0','0','0','0','0'};
 
     bool gameover = false;
     std::cout << "player 1 what is your name: ";
     std::cin >> player1Name;
     std::cout << "player 2 what is your name: ";
     std::cin >> player2Name;
-
     while (!gameover) {
-        printGrid(grid);
+
+        printGrid();
+
+        winner = checkWinner();
 
         if (winner == 'X') {
             std::cout << player1Name << " wins!\n";
@@ -58,99 +68,96 @@ int main()
             gameover = true;
             break;
         }
-        else if (winner == 'q') {
+        else if (winner == 's') {
             std::cout << "scratch!\n";
             gameover = true;
             break;
         }
-
         if (player1turn)
-            std::cout << player1Name << " it is your turn!\nPlace an X using 1-9 on the numpad";
+            std::cout << player1Name << " it is your turn!\n";
         else
-            std::cout << player2Name << " it is your turn!\nPlace an X using 1-9 on the numpad";
+            std::cout << player2Name << " it is your turn!\n";
 
         do {
             std::cin >> input;
         } while (input < 0 && input > 10);
 
         if (player1turn) {
-            if (input == 7 && grid[0] == '0') {
-                grid[0] = 'X'; 
+            if (input == 7 && grid[0][0] == '0') {
+                grid[0][0] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 8 && grid[1] == '0') {
-                grid[1] = 'X';
+            else if (input == 8 && grid[0][1] == '0') {
+                grid[0][1] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 9 && grid[2] == '0') {
-                grid[2] = 'X';
+            else if (input == 9 && grid[0][2] == '0') {
+                grid[0][2] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 4 && grid[3] == '0') {
-                grid[3] = 'X';
+            else if (input == 4 && grid[1][0] == '0') {
+                grid[1][0] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 5 && grid[4] == '0') {
-                grid[4] = 'X';
+            else if (input == 5 && grid[1][1] == '0') {
+                grid[1][1] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 6 && grid[5] == '0') {
-                grid[5] = 'X';
+            else if (input == 6 && grid[1][2] == '0') {
+                grid[1][2] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 1 && grid[6] == '0') {
-                grid[6] = 'X';
+            else if (input == 1 && grid[2][0] == '0') {
+                grid[2][0] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 2 && grid[7] == '0') {
-                grid[7] = 'X';
+            else if (input == 2 && grid[2][1] == '0') {
+                grid[2][1] = 'X';
                 player1turn = !player1turn;
             }
-            else if (input == 3 && grid[8] == '0') {
-                grid[8] = 'X';
+            else if (input == 3 && grid[2][2] == '0') {
+                grid[2][2] = 'X';
                 player1turn = !player1turn;
             }
         }
         else {
-            if (input == 7 && grid[0] == '0') {
-                grid[0] = 'O';
+            if (input == 7 && grid[0][0] == '0') {
+                grid[0][0] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 8 && grid[1] == '0') {
-                grid[1] = 'O';
+            else if (input == 8 && grid[0][1] == '0') {
+                grid[0][1] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 9 && grid[2] == '0') {
-                grid[2] = 'O';
+            else if (input == 9 && grid[0][2] == '0') {
+                grid[0][2] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 4 && grid[3] == '0') {
-                grid[3] = 'O';
+            else if (input == 4 && grid[1][0] == '0') {
+                grid[1][0] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 5 && grid[4] == '0') {
-                grid[4] = 'O';
+            else if (input == 5 && grid[1][1] == '0') {
+                grid[1][1] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 6 && grid[5] == '0') {
-                grid[5] = 'O';
+            else if (input == 6 && grid[1][2] == '0') {
+                grid[1][2] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 1 && grid[6] == '0') {
-                grid[6] = 'O';
+            else if (input == 1 && grid[2][0] == '0') {
+                grid[2][0] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 2 && grid[7] == '0') {
-                grid[7] = 'O';
+            else if (input == 2 && grid[2][1] == '0') {
+                grid[2][1] = 'O';
                 player1turn = !player1turn;
             }
-            else if (input == 3 && grid[8] == '0') {
-                grid[8] = 'O';
+            else if (input == 3 && grid[2][2] == '0') {
+                grid[2][2] = 'O';
                 player1turn = !player1turn;
             }
         }
-        winner = checkWinner(grid);
-
         system("cls");
     }
 
