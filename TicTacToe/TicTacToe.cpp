@@ -3,13 +3,14 @@
 
 #include <iostream>
 
-
+//public array for grid
 char grid[3][3] = { {'0','0','0'},{'0','0','0'},{'0','0','0'} };
+//prints grid to the console screen
 void printGrid() {
 
     for (int i = 0; i < 3; i++) {
         for (int y = 0; y < 3; y++) {
-            if (y == 0)
+            if(y == 0)
                 std::cout << "         " << grid[i][y];
             else
                 std::cout << "    |    " << grid[i][y];
@@ -20,6 +21,7 @@ void printGrid() {
             std::cout << std::endl;
     }
 }
+//checks if there is a winning conditions for either player
 char checkWinner() {
 
     if (grid[0][0] == 'X' && grid[0][1] == 'X' && grid[0][2] == 'X' || grid[1][0] == 'X' && grid[1][1] == 'X' && grid[1][2] == 'X' || grid[2][0] == 'X' && grid[2][1] == 'X' && grid[2][2] == 'X' ||
@@ -41,23 +43,26 @@ char checkWinner() {
 
 int main()
 {
+    //initilize variables for entire game
     bool player1turn = true;
     char player1Name[15];
     char player2Name[15];
     char winner = ' ';
     int input = 0;
-
     bool gameover = false;
+
+    //ask for each players names
     std::cout << "player 1 what is your name: ";
     std::cin >> player1Name;
     std::cout << "player 2 what is your name: ";
     std::cin >> player2Name;
+
+    //main game loop
     while (!gameover) {
-
+        //prints the grid to screen every loop
         printGrid();
-
+        //sets winner if there is a winner
         winner = checkWinner();
-
         if (winner == 'X') {
             std::cout << player1Name << " wins!\n";
             gameover = true;
@@ -73,15 +78,19 @@ int main()
             gameover = true;
             break;
         }
-        if (player1turn)
-            std::cout << player1Name << " it is your turn!\n";
-        else
-            std::cout << player2Name << " it is your turn!\n";
 
+        //tells whos turn it is
+        if (player1turn)
+            std::cout << player1Name << " it is your turn!\ninput 1-9 on the numpad to choose your space\n";
+        else
+            std::cout << player2Name << " it is your turn!\ninput 1-9 on the numpad to choose your space\n";
+        //check to see if input is valid
         do {
             std::cin >> input;
         } while (input < 0 && input > 10);
 
+        /*when its a players turn uses the previous input selected checks to see if the spot already used;
+        if not set's the spot to players icon*/
         if (player1turn) {
             if (input == 7 && grid[0][0] == '0') {
                 grid[0][0] = 'X';
@@ -158,6 +167,7 @@ int main()
                 player1turn = !player1turn;
             }
         }
+        //clear screen after everything is done
         system("cls");
     }
 
