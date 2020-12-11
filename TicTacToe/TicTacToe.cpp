@@ -44,8 +44,10 @@ int main()
     std::cin >> player1Name;
     std::cout << "player 2 what is your name: ";
     std::cin >> player2Name;
+
     while (!gameover) {
         printGrid(grid);
+
         if (winner == 'X') {
             std::cout << player1Name << " wins!\n";
             gameover = true;
@@ -61,10 +63,11 @@ int main()
             gameover = true;
             break;
         }
+
         if (player1turn)
-            std::cout << player1Name << " it is your turn!\n";
+            std::cout << player1Name << " it is your turn!\nPlace an X using 1-9 on the numpad";
         else
-            std::cout << player2Name << " it is your turn!\n";
+            std::cout << player2Name << " it is your turn!\nPlace an X using 1-9 on the numpad";
 
         do {
             std::cin >> input;
