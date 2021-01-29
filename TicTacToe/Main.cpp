@@ -23,17 +23,17 @@ void printGrid() {
 }
 //checks if there is a winning conditions for either player
 char checkWinner() {
-
+    //if player one wins
     if (grid[0][0] == 'X' && grid[0][1] == 'X' && grid[0][2] == 'X' || grid[1][0] == 'X' && grid[1][1] == 'X' && grid[1][2] == 'X' || grid[2][0] == 'X' && grid[2][1] == 'X' && grid[2][2] == 'X' ||
         grid[0][0] == 'X' && grid[1][0] == 'X' && grid[2][0] == 'X' || grid[0][1] == 'X' && grid[1][1] == 'X' && grid[2][1] == 'X' || grid[0][2] == 'X' && grid[1][2] == 'X' && grid[2][2] == 'X' ||
         grid[0][0] == 'X' && grid[1][1] == 'X' && grid[2][2] == 'X' || grid[0][2] == 'X' && grid[1][1] == 'X' && grid[2][0] == 'X') {
         return 'X';
-    }
+    }//if player two wins
     else if (grid[0][0] == 'O' && grid[0][1] == 'O' && grid[0][2] == 'O' || grid[1][0] == 'O' && grid[1][1] == 'O' && grid[1][2] == 'O' || grid[2][0] == 'O' && grid[2][1] == 'O' && grid[2][2] == 'O' ||
         grid[0][0] == 'O' && grid[1][0] == 'O' && grid[2][0] == 'O' || grid[0][1] == 'O' && grid[1][1] == 'O' && grid[2][1] == 'O' || grid[0][2] == 'O' && grid[1][2] == 'O' && grid[2][2] == 'O' ||
         grid[0][0] == 'O' && grid[1][1] == 'O' && grid[2][2] == 'O' || grid[0][2] == 'O' && grid[1][1] == 'O' && grid[2][0] == 'O') {
         return 'O';
-    }
+    }//if no one wins "scratch"
     else if (grid[0][0] != '0' && grid[0][1] != '0' && grid[0][2] != '0' && grid[1][0] != '0' && grid[1][1] != '0' && grid[1][2] != '0' && grid[2][0] != '0' && grid[2][1] != '0' && grid[2][2] != '0') {
         return 's';
     }
